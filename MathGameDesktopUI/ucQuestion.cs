@@ -1,9 +1,4 @@
-﻿using Math_Quiz.Properties;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
+﻿using MathGameDesktopUI.Properties;
 using static Math_Quiz.frmMathQuiz;
 
 namespace Math_Quiz
@@ -288,12 +283,19 @@ namespace Math_Quiz
             }
 
             if (SelectedRB == null)
+            {
                 return;
+            }
 
             if (_DoesOptionMatchRightAnswer(SelectedRB))
-                _ShowAffectOfRightAnswer(Convert.ToByte(SelectedRB.Tag)); // Tag contains the position of the option
+            {
+                // Tag contains the position of the option
+                _ShowAffectOfRightAnswer(Convert.ToByte(SelectedRB.Tag));
+            }
             else
+            {
                 _ShowAffectOfWrongAnswer(Convert.ToByte(SelectedRB.Tag));
+            }
         }
 
         private void _PerformDisableUnselectedOptions(byte PositionOfSelectedOption)
@@ -301,7 +303,9 @@ namespace Math_Quiz
             foreach (RadioButton radioButton in new[] { rbOption1, rbOption2, rbOption3, rbOption4 })
             {
                 if (Convert.ToByte(radioButton.Tag) != PositionOfSelectedOption)
+                {
                     radioButton.Enabled = false;
+                }
             }
         }
 
@@ -323,13 +327,14 @@ namespace Math_Quiz
             if (_IsThereSelectedOption(out RadioButton rbSelected))
             {
                 if (rbSelected != null)
+                {
                     _DisableUnselectedOptions(Convert.ToByte(rbSelected.Tag));
+                }
             }
             else
             {
                 _DisableAllOptions();
             }
-
         }
     }
 }
