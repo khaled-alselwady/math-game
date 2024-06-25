@@ -48,7 +48,7 @@ namespace Math_Quiz
             if (To < From)
                 return;
 
-            List<double> options = _GenerateOptions(From, To);
+            List<double> options = _GenerateOptions(_QuestionInfo.RightAnswer);
 
             if (options.Count >= 4)
             {
@@ -59,17 +59,17 @@ namespace Math_Quiz
             }
         }
 
-        private List<double> _GenerateOptions(int From, int To)
+        private List<double> _GenerateOptions(double rightAnswer)
         {
-            HashSet<double> Options = new HashSet<double>();
-
             // Add the right answer first
-            Options.Add(_QuestionInfo.RightAnswer);
+            HashSet<double> Options = new HashSet<double>() { rightAnswer };
+
 
             // Generate random options until we have at least 3 distinct ones
             while (Options.Count < 4)
             {
-                double RandomNumber = _Random.Next(From, To);
+                // Get options close to the correct answer
+                double RandomNumber = _Random.Next((int)(rightAnswer - 10), (int)(rightAnswer + 10));
                 Options.Add(RandomNumber);
             }
 
@@ -100,7 +100,7 @@ namespace Math_Quiz
             }
         }
 
-        private double _Calculate()
+        private double _CalculateRightAnswer()
         {
             switch (_QuestionInfo.Operation)
             {
@@ -124,7 +124,7 @@ namespace Math_Quiz
 
         private double _GetRightAnswer()
         {
-            return _Calculate();
+            return _CalculateRightAnswer();
         }
 
         private void _CreateQuestionText()
